@@ -14,4 +14,8 @@ public class Point {
 
     return Math.sqrt(Math.pow((this.x - p1.x), 2) + Math.pow((this.y - p1.y),2));
   }
+
+  public String getPoint(){
+    return this.x+", "+this.y;
+  }
 }
