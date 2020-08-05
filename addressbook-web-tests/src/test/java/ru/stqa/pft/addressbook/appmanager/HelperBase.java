@@ -3,12 +3,13 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class HelperBase {
   protected FirefoxDriver wd;
 
   public HelperBase(FirefoxDriver wd) {
-    this.wd=wd;
+    this.wd = wd;
   }
 
   protected void click(By locator) {
@@ -19,6 +20,12 @@ public class HelperBase {
     click(locator);
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
+  }
+
+  protected void clickSelect(By locator, String text) {
+    wd.findElement(locator).click();
+    new Select(wd.findElement(locator)).selectByVisibleText(text);
+    wd.findElement(By.xpath("//option[@value='" + text + "']")).click();
   }
 
   private boolean isAlertPresent() {
