@@ -5,7 +5,7 @@ import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 
-public class GroupCreationTest extends TestBase {
+public class GroupCreationTests extends TestBase {
 
   @Test
   public void testGroupCreation() {

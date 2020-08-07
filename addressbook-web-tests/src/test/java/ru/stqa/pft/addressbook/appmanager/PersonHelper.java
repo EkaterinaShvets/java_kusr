@@ -14,6 +14,19 @@ public class PersonHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
+  public void submitPersonModification() {
+    click(By.xpath("(//input[@name='update'])[2]"));
+  }
+
+  public void selectPerson() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+  }
+
+  public void deleteSelectedPerson() {
+    click(By.xpath("//input[@value='Delete']"));
+    wd.switchTo().alert().accept();
+  };
+
   public void fillPersonForm(PersonData personData) {
     type(By.name("firstname"), personData.getFirstname());
     type(By.name("middlename"), personData.getMiddlename());
@@ -29,5 +42,9 @@ public class PersonHelper extends HelperBase {
 
   public void gotoNewPersonPage() {
     click(By.linkText("add new"));
+  }
+
+  public void initPersonModification () {
+    click(By.xpath("//img[@alt='Edit']"));
   }
 }
