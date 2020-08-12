@@ -1,9 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.PersonData;
@@ -29,7 +27,7 @@ public class PersonHelper extends HelperBase {
   public void deleteSelectedPerson() {
     click(By.xpath("//input[@value='Delete']"));
     wd.switchTo().alert().accept();
-  };
+  }
 
   public void fillPersonForm(PersonData personData, boolean creation) {
     type(By.name("firstname"), personData.getFirstname());
@@ -45,7 +43,7 @@ public class PersonHelper extends HelperBase {
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(personData.getGroup());
     } else {
-      Assert.assertFalse(isElementPresent (By.name("new_group")));
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 
     type(By.name("byear"), personData.getByear());
@@ -55,7 +53,17 @@ public class PersonHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void initPersonModification () {
+  public void initPersonModification() {
     click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void createPerson(PersonData person) {
+    gotoNewPersonPage();
+    fillPersonForm(person, true);
+    submitPersonCreation();
+  }
+
+  public boolean isThereAPerson() {
+    return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
   }
 }
