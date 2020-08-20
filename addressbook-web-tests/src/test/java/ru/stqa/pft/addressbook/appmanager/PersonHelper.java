@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.PersonData;
 
 import java.util.ArrayList;
@@ -85,7 +84,8 @@ public class PersonHelper extends HelperBase {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
-      PersonData person = new PersonData(firstName, null, lastName, null, null, null, null, null, null, null, null, null);
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      PersonData person = new PersonData(id, firstName, null, lastName, null, null, null, null, null, null, null, null, null);
       persons.add(person);
     }
     return persons;
