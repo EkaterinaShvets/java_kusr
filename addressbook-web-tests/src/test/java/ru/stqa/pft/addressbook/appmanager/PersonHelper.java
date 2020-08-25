@@ -62,10 +62,22 @@ public class PersonHelper extends HelperBase {
     wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
-  public void createPerson(PersonData person) {
+  public void create(PersonData person) {
     gotoNewPersonPage();
     fillPersonForm(person, true);
     submitPersonCreation();
+  }
+
+  public void modify(int index, PersonData person) {
+    initPersonModification(index);
+    fillPersonForm(person, false);
+    submitPersonModification();
+  }
+
+
+  public void delete(int index) {
+    selectPerson(index);
+    deleteSelectedPerson();
   }
 
   public boolean isThereAPerson() {
@@ -77,7 +89,7 @@ public class PersonHelper extends HelperBase {
   }
 
 
-  public List<PersonData> getPersonList() {
+  public List<PersonData> list() {
     List<PersonData> persons = new ArrayList<PersonData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {

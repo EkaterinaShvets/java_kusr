@@ -11,11 +11,12 @@ public class PersonCreationTests extends TestBase {
 
   @Test
   public void testPersonCreation() {
-    List<PersonData> before = app.getPersonHelper().getPersonList();
+    app.goTo().homePage();
+    List<PersonData> before = app.person().list();
     PersonData person = new PersonData("Теодор", "Джеймс", "Уотсон", "г. Вязьма, ул. Ланского, д.6", "+7(923)123-43-21", "Лесничество им. Каракозова", "teodorJW@mail.bk", "7", "July", "1970", "teodorJW@mail.bk", "test1");
-    app.getPersonHelper().createPerson(person);
-    app.getNavigationHelper().gotoHomePage();
-    List<PersonData> after = app.getPersonHelper().getPersonList();
+    app.person().create(person);
+    app.goTo().homePage();
+    List<PersonData> after = app.person().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     before.add(person);
