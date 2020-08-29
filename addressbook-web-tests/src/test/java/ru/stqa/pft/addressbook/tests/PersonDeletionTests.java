@@ -12,7 +12,10 @@ public class PersonDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions () {
     if (app.person().list().size() == 0) {
-      app.person().create(new PersonData("Теодор", "Джеймс", "Уотсон", "г. Вязьма, ул. Ланского, д.6", "+7(923)123-43-21", "Лесничество им. Каракозова", "teodorJW@mail.bk", "7", "July", "1970", "teodorJW@mail.bk", "test1"));
+      app.person().create(new PersonData().withFirstname("Теодор").withMiddlename("Джеймс")
+              .withLastname("Уотсон").withAddress("г. Вязьма, ул. Ланского, д.6")
+              .withMobilephone("+7(923)123-43-21").withWorkname("Лесничество им. Каракозова")
+              .withEmail("teodorJW@mail.bk").withBday("7").withBmonth("July").withByear("1970").withGroup("test1"));
       app.goTo().homePage();
     }
   }

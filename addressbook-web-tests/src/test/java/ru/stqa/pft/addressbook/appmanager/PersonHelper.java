@@ -97,8 +97,7 @@ public class PersonHelper extends HelperBase {
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      PersonData person = new PersonData(id, firstName, null, lastName, null, null, null, null, null, null, null, null, null);
-      persons.add(person);
+      persons.add(new PersonData().withId(id).withFirstname(firstName).withLastname(lastName));
     }
     return persons;
   }

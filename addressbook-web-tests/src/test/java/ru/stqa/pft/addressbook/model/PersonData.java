@@ -3,38 +3,77 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class PersonData {
-  private int id;
-  private final String firstname;
-  private final String middlename;
-  private final String lastname;
-  private final String address;
-  private final String mobilephone;
-  private final String workname;
-  private final String email_1;
-  private final String bday;
-  private final String bmonth;
-  private final String byear;
-  private final String email;
+  private int id = Integer.MAX_VALUE;;
+  private String firstname;
+  private String middlename;
+  private String lastname;
+  private String address;
+  private String mobilephone;
+  private String workname;
+  private String bday;
+  private String bmonth;
+  private String byear;
+  private String email;
   private String group;
 
-  public void setId(int id) {
+  public PersonData withId(int id) {
     this.id = id;
+    return this;
   }
 
-  public PersonData(int id, String firstname, String middlename, String lastname, String address, String mobilephone, String workname, String email_1, String bday, String bmonth, String byear, String email, String group) {
-    this.id = id;
+  public PersonData withFirstname(String firstname) {
     this.firstname = firstname;
+    return this;
+  }
+
+  public PersonData withMiddlename(String middlename) {
     this.middlename = middlename;
+    return this;
+  }
+
+  public PersonData withLastname(String lastname) {
     this.lastname = lastname;
+    return this;
+  }
+
+  public PersonData withAddress(String address) {
     this.address = address;
+    return this;
+  }
+
+  public PersonData withMobilephone(String mobilephone) {
     this.mobilephone = mobilephone;
+    return this;
+  }
+
+  public PersonData withWorkname(String workname) {
     this.workname = workname;
-    this.email_1 = email_1;
+    return this;
+  }
+
+  public PersonData withBday(String bday) {
     this.bday = bday;
+    return this;
+  }
+
+  public PersonData withBmonth(String bmonth) {
     this.bmonth = bmonth;
+    return this;
+  }
+
+  public PersonData withByear(String byear) {
     this.byear = byear;
+    return this;
+  }
+
+  public PersonData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public PersonData withGroup(String group) {
     this.group = group;
+    return this;
   }
 
   @Override
@@ -49,22 +88,6 @@ public class PersonData {
   @Override
   public int hashCode() {
     return Objects.hash(firstname, lastname);
-  }
-
-  public PersonData(String firstname, String middlename, String lastname, String address, String mobilephone, String workname, String email_1, String bday, String bmonth, String byear, String email, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstname = firstname;
-    this.middlename = middlename;
-    this.lastname = lastname;
-    this.address = address;
-    this.mobilephone = mobilephone;
-    this.workname = workname;
-    this.email_1 = email_1;
-    this.bday = bday;
-    this.bmonth = bmonth;
-    this.byear = byear;
-    this.email = email;
-    this.group = group;
   }
 
   public String getFirstname() {
@@ -89,10 +112,6 @@ public class PersonData {
 
   public String getWorkname() {
     return workname;
-  }
-
-  public String getEmail_1() {
-    return email_1;
   }
 
   public String getBday() {

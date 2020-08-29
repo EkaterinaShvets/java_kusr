@@ -13,7 +13,10 @@ public class PersonCreationTests extends TestBase {
   public void testPersonCreation() {
     app.goTo().homePage();
     List<PersonData> before = app.person().list();
-    PersonData person = new PersonData("Теодор", "Джеймс", "Уотсон", "г. Вязьма, ул. Ланского, д.6", "+7(923)123-43-21", "Лесничество им. Каракозова", "teodorJW@mail.bk", "7", "July", "1970", "teodorJW@mail.bk", "test1");
+    PersonData person = new PersonData().withFirstname("Теодор").withMiddlename("Джеймс")
+            .withLastname("Уотсон").withAddress("г. Вязьма, ул. Ланского, д.6")
+            .withMobilephone("+7(923)123-43-21").withWorkname("Лесничество им. Каракозова")
+            .withEmail("teodorJW@mail.bk").withBday("7").withBmonth("July").withByear("1970").withGroup("test1");
     app.person().create(person);
     app.goTo().homePage();
     List<PersonData> after = app.person().list();
