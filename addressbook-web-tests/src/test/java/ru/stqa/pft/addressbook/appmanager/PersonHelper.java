@@ -5,15 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.PersonData;
 import ru.stqa.pft.addressbook.model.Persons;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public class PersonHelper extends HelperBase {
+  private Persons personCash = null;
 
   public PersonHelper(WebDriver wd) {
     super(wd);
@@ -69,17 +68,20 @@ public class PersonHelper extends HelperBase {
     gotoNewPersonPage();
     fillPersonForm(person, true);
     submitPersonCreation();
+    personCash = null;
   }
 
   public void modify(PersonData person) {
     initPersonModificationById(person.getId());
     fillPersonForm(person, false);
     submitPersonModification();
+    personCash = null;
   }
 
   public void delete(PersonData person) {
     selectPersonById(person.getId());
     deleteSelectedPerson();
+    personCash = null;
   }
 
   public boolean isThereAPerson() {
@@ -91,16 +93,20 @@ public class PersonHelper extends HelperBase {
   }
 
   public Persons all() {
-    Persons persons = new Persons();
+    if (personCash != null) {
+      return new Persons(personCash);
+    }
+
+    personCash = new Persons();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       String lastName = cells.get(1).getText();
       String firstName = cells.get(2).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      persons.add(new PersonData().withId(id).withFirstname(firstName).withLastname(lastName));
+      personCash.add(new PersonData().withId(id).withFirstname(firstName).withLastname(lastName));
     }
-    return persons;
+    return new Persons(personCash);
   }
 
 }
