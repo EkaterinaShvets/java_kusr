@@ -16,7 +16,7 @@ public class PersonCreationTests extends TestBase {
     Persons before = app.person().all();
     PersonData person = new PersonData().withFirstname("Теодор").withMiddlename("Джеймс")
             .withLastname("Уотсон").withAddress("г. Вязьма, ул. Ланского, д.6")
-            .withMobilePhone("+7(923)123-43-21").withWorkPhone("12-13-14").withHomePhone("45-67-43")
+            .withMobilePhone("+7(923)123-43-21").withWorkPhone("12-13-14")
             .withEmail("teodorJW@mail.bk").withBday("7").withBmonth("July").withByear("1970").withGroup("test1");
     app.person().create(person);
     app.goTo().homePage();

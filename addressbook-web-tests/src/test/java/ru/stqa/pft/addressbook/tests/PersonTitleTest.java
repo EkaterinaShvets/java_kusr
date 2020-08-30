@@ -4,10 +4,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.PersonData;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PersonPhoneTest extends TestBase {
+public class PersonTitleTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -26,12 +29,25 @@ public class PersonPhoneTest extends TestBase {
     PersonData person = app.person().all().iterator().next();
     PersonData personInfoFromEditForm = app.person().infoFromEditForm(person);
 
-    assertThat(person.getHomePhone(), equalTo(cleaned(personInfoFromEditForm.getHomePhone())));
-    assertThat(person.getMobilePhone(), equalTo(cleaned(personInfoFromEditForm.getMobilePhone())));
-    assertThat(person.getWorkPhone(), equalTo(cleaned(personInfoFromEditForm.getWorkPhone())));
+    assertThat(person.getAllPhones(), equalTo(mergePhones(personInfoFromEditForm)));
+    assertThat(person.getAddress(),
+            equalTo(personInfoFromEditForm.getAddress().replaceAll("\\s+", " ").trim()));
+    assertThat(person.getAllEmails(), equalTo(mergeEmails(personInfoFromEditForm)));
   }
 
-  public String cleaned(String phone) {
+  private String mergePhones(PersonData person) {
+    return Arrays.asList(person.getHomePhone(), person.getMobilePhone(), person.getWorkPhone(), person.getPhoneSecondary())
+            .stream().filter((s) -> !s.equals("")).map(PersonTitleTest::cleanedPhones)
+            .collect(Collectors.joining("\n"));
+  }
+
+  private String mergeEmails(PersonData person) {
+    return Arrays.asList(person.getEmail().trim(), person.getEmail2().trim(), person.getEmail3().trim())
+            .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
+  }
+
+  public static String cleanedPhones(String phone) {
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
+
 }

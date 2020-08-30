@@ -11,11 +11,16 @@ public class PersonData {
   private String mobilephone;
   private String workphone;
   private String homephone;
+  private String allPhones;
   private String bday;
   private String bmonth;
   private String byear;
   private String email;
+  private String email2;
+  private String email3;
+  private String allEmails;
   private String group;
+  private String phoneSecondary;
 
   public PersonData withId(int id) {
     this.id = id;
@@ -80,6 +85,51 @@ public class PersonData {
   public PersonData withGroup(String group) {
     this.group = group;
     return this;
+  }
+
+  public PersonData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  public PersonData withPhoneSecondary(String phoneSecondary) {
+    this.phoneSecondary = phoneSecondary;
+    return this;
+  }
+
+  public PersonData whithEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public PersonData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public PersonData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getPhoneSecondary() {
+    return phoneSecondary;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
   }
 
   public String getFirstname() {
