@@ -9,7 +9,8 @@ public class PersonData {
   private String lastname;
   private String address;
   private String mobilephone;
-  private String workname;
+  private String workphone;
+  private String homephone;
   private String bday;
   private String bmonth;
   private String byear;
@@ -41,13 +42,18 @@ public class PersonData {
     return this;
   }
 
-  public PersonData withMobilephone(String mobilephone) {
+  public PersonData withMobilePhone(String mobilephone) {
     this.mobilephone = mobilephone;
     return this;
   }
 
-  public PersonData withWorkname(String workname) {
-    this.workname = workname;
+  public PersonData withWorkPhone(String workname) {
+    this.workphone = workname;
+    return this;
+  }
+
+  public PersonData withHomePhone(String homephone) {
+    this.homephone = homephone;
     return this;
   }
 
@@ -92,12 +98,16 @@ public class PersonData {
     return address;
   }
 
-  public String getMobilephone() {
+  public String getMobilePhone() {
     return mobilephone;
   }
 
-  public String getWorkname() {
-    return workname;
+  public String getWorkPhone() {
+    return workphone;
+  }
+
+  public String getHomePhone() {
+    return homephone;
   }
 
   public String getBday() {

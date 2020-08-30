@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.PersonData;
 import ru.stqa.pft.addressbook.model.Persons;
@@ -17,12 +16,12 @@ public class PersonCreationTests extends TestBase {
     Persons before = app.person().all();
     PersonData person = new PersonData().withFirstname("Теодор").withMiddlename("Джеймс")
             .withLastname("Уотсон").withAddress("г. Вязьма, ул. Ланского, д.6")
-            .withMobilephone("+7(923)123-43-21").withWorkname("Лесничество им. Каракозова")
+            .withMobilePhone("+7(923)123-43-21").withWorkPhone("12-13-14").withHomePhone("45-67-43")
             .withEmail("teodorJW@mail.bk").withBday("7").withBmonth("July").withByear("1970").withGroup("test1");
     app.person().create(person);
     app.goTo().homePage();
+    assertEquals(app.person().count(), before.size()+1);
     Persons after = app.person().all();
-    assertEquals(after.size(), before.size()+1);
     assertThat(after, equalTo(
             before.whithAdded(person.withId(after.stream().mapToInt((p) -> p.getId()).max().getAsInt()))));
   }
