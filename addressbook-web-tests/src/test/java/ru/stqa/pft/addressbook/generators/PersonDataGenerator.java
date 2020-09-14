@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.PersonData;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -51,24 +52,24 @@ public class PersonDataGenerator {
   }
 
   private static void saveAsCsv(List<PersonData> persons, File file) throws IOException {
-    try (Writer writer = new FileWriter(file)) {
-      for (PersonData person: persons) {
-        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
-                person.getFirstname(), person.getMiddlename(), person.getLastname(), person.getPhoto(),
-                person.getAddress(), person.getHomePhone(), person.getMobilePhone(), person.getWorkPhone(),
-                person.getEmail(), person.getEmail2(), person.getEmail3(),
-                person.getBday(), person.getBmonth(), person.getByear(), person.getGroup()));
-      }
+    Writer writer = new FileWriter(file);
+    for (PersonData person: persons) {
+      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
+              person.getFirstname(), person.getMiddlename(), person.getLastname(), person.getPhoto(),
+              person.getAddress(), person.getHomePhone(), person.getMobilePhone(), person.getWorkPhone(),
+              person.getEmail(), person.getEmail2(), person.getEmail3(),
+              person.getBday(), person.getBmonth(), person.getByear(), person.getGroup()));
     }
-   }
+    writer.close();
+  }
 
   private void saveAsXml(List<PersonData> persons, File file) throws IOException {
     XStream xstream = new XStream();
     xstream.processAnnotations(PersonData.class);
     String xml = xstream.toXML(persons);
-    try (Writer writer = new FileWriter(file)) {
-      writer.write(xml);
-    }
+    Writer writer = new FileWriter(file);
+    writer.write(xml);
+    writer.close();
   }
 
   private void saveAsJson(List<PersonData> persons, File file) throws IOException {
@@ -79,9 +80,9 @@ public class PersonDataGenerator {
             .create();
 
     String json = gson.toJson(persons);
-    try (Writer writer = new FileWriter(file)) {
-      writer.write(json);
-    }
+    Writer writer = new FileWriter(file);
+    writer.write(json);
+    writer.close();
   }
 
   private static List<PersonData> generatePersons(int count) {
