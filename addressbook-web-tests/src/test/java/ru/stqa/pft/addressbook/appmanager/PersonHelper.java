@@ -39,6 +39,7 @@ public class PersonHelper extends HelperBase {
     type(By.name("firstname"), personData.getFirstname());
     type(By.name("middlename"), personData.getMiddlename());
     type(By.name("lastname"), personData.getLastname());
+    attach(By.name("photo"), personData.getPhoto());
     type(By.name("address"), personData.getAddress());
     type(By.name("mobile"), personData.getMobilePhone());
     type(By.name("work"), personData.getWorkPhone());
@@ -130,6 +131,6 @@ public class PersonHelper extends HelperBase {
     return new PersonData().withId(person.getId()).withFirstname(firstname).withLastname(lastname)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
             .withPhoneSecondary(phoneSecondary).withAddress(address).withEmail(email)
-            .whithEmail2(email2).withEmail3(email3);
+            .withEmail2(email2).withEmail3(email3);
   }
 }

@@ -1,26 +1,50 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.io.File;
 import java.util.Objects;
 
 public class PersonData {
-  private int id = Integer.MAX_VALUE;;
+  @XStreamOmitField
+  private int id = Integer.MAX_VALUE;
+  @Expose
   private String firstname;
+  @Expose
   private String middlename;
+  @Expose
   private String lastname;
+  @Expose
   private String address;
+  @Expose
   private String mobilephone;
+  @Expose
   private String workphone;
+  @Expose
   private String homephone;
+  @Expose
   private String allPhones;
+  @Expose
   private String bday;
+  @Expose
   private String bmonth;
+  @Expose
   private String byear;
+  @Expose
   private String email;
+  @Expose
   private String email2;
+  @Expose
   private String email3;
+  @Expose
   private String allEmails;
+  @Expose
   private String group;
+  @Expose
   private String phoneSecondary;
+  @Expose 
+  private File photo;
 
   public PersonData withId(int id) {
     this.id = id;
@@ -97,7 +121,7 @@ public class PersonData {
     return this;
   }
 
-  public PersonData whithEmail2(String email2) {
+  public PersonData withEmail2(String email2) {
     this.email2 = email2;
     return this;
   }
@@ -107,13 +131,23 @@ public class PersonData {
     return this;
   }
 
-  public String getEmail3() {
-    return email3;
+
+  public PersonData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
   }
 
   public PersonData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
     return this;
+  }
+
+  public File getPhoto() {
+    return photo;
+  }
+
+  public String getEmail3() {
+    return email3;
   }
 
   public String getAllEmails() {
