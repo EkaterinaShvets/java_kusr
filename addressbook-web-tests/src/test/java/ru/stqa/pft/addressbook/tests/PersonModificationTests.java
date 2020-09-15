@@ -17,7 +17,7 @@ public class PersonModificationTests extends TestBase {
       app.person().create(new PersonData().withFirstname("Теодор").withMiddlename("Джеймс")
               .withLastname("Уотсон").withAddress("г. Вязьма, ул. Ланского, д.6")
               .withMobilePhone("+7(923)123-43-21").withWorkPhone("12-13-14").withHomePhone("45-67-43")
-              .withEmail("teodorJW@mail.bk").withBday("7").withBmonth("July").withByear("1970").withGroup("test1"));
+              .withEmail("teodorJW@mail.bk").withBday("7").withBmonth("July").withByear("1970").withGroup("test 1"));
       app.goTo().homePage();
     }
   }
