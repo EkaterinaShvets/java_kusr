@@ -2,49 +2,100 @@ package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table (name = "addressbook")
 public class PersonData {
   @XStreamOmitField
+  @Id
+  @Column (name = "id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column (name = "firstname")
   private String firstname;
+
   @Expose
+  @Column (name = "middlename")
   private String middlename;
+
   @Expose
+  @Column (name = "lastname")
   private String lastname;
+
   @Expose
+  @Column (name = "address")
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Column (name = "mobile")
+  @Type(type = "text")
   private String mobilephone;
+
   @Expose
+  @Column (name = "work")
+  @Type(type = "text")
   private String workphone;
+
   @Expose
+  @Column (name = "home")
+  @Type(type = "text")
   private String homephone;
+
   @Expose
+  @Transient
   private String allPhones;
+
   @Expose
-  private String bday;
+  @Column (name = "bday", columnDefinition = "tinyint")
+  private int bday;
+
   @Expose
+  @Column (name = "bmonth")
   private String bmonth;
+
   @Expose
+  @Column (name = "byear")
   private String byear;
+
   @Expose
+  @Column (name = "email")
+  @Type(type = "text")
   private String email;
+
   @Expose
+  @Column (name = "email2")
+  @Type(type = "text")
   private String email2;
+
   @Expose
+  @Column (name = "email3")
+  @Type(type = "text")
   private String email3;
+
   @Expose
+  @Transient
   private String allEmails;
+
   @Expose
+  @Transient
   private String group;
+
   @Expose
+  @Column (name = "phone2")
+  @Type(type = "text")
   private String phoneSecondary;
-  @Expose 
-  private File photo;
+
+  @Expose
+  @Column (name = "photo")
+  @Type(type = "text")
+  private String photo;
 
   public PersonData withId(int id) {
     this.id = id;
@@ -86,7 +137,7 @@ public class PersonData {
     return this;
   }
 
-  public PersonData withBday(String bday) {
+  public PersonData withBday(int bday) {
     this.bday = bday;
     return this;
   }
@@ -132,8 +183,8 @@ public class PersonData {
   }
 
 
-  public PersonData withPhoto(File photo) {
-    this.photo = photo;
+  public PersonData withPhoto (File photo) {
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -142,9 +193,7 @@ public class PersonData {
     return this;
   }
 
-  public File getPhoto() {
-    return photo;
-  }
+  public File getPhoto() { return new File (photo); }
 
   public String getEmail3() {
     return email3;
@@ -194,7 +243,7 @@ public class PersonData {
     return homephone;
   }
 
-  public String getBday() {
+  public int getBday() {
     return bday;
   }
 
@@ -233,12 +282,19 @@ public class PersonData {
     if (o == null || getClass() != o.getClass()) return false;
     PersonData that = (PersonData) o;
     return id == that.id &&
+            bday == that.bday &&
             Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
+            Objects.equals(middlename, that.middlename) &&
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(mobilephone, that.mobilephone) &&
+            Objects.equals(bmonth, that.bmonth) &&
+            Objects.equals(byear, that.byear) &&
+            Objects.equals(email, that.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname);
+    return Objects.hash(id, firstname, middlename, lastname, address, mobilephone, bday, bmonth, byear, email);
   }
 }

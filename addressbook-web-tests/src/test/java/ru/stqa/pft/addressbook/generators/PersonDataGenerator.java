@@ -100,7 +100,7 @@ public class PersonDataGenerator {
               .withEmail(String.format("email_%s", i))
               .withEmail2(String.format("email2_%s", i))
               .withEmail3(String.format("email3_%s", i))
-              .withBday("7").withBmonth("July").withByear("1970")
+              .withBday(7).withBmonth("July").withByear("1970")
               .withGroup("test1"));
     }
     return persons;

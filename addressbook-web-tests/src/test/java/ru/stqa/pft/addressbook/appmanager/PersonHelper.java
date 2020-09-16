@@ -45,8 +45,11 @@ public class PersonHelper extends HelperBase {
     type(By.name("work"), personData.getWorkPhone());
     type(By.name("home"), personData.getHomePhone());
     type(By.name("email"), personData.getEmail());
-    new Select(wd.findElement(By.name("bday"))).selectByVisibleText(personData.getBday());
+    type(By.name("email2"), personData.getEmail2());
+    type(By.name("email3"), personData.getEmail3());
+    new Select(wd.findElement(By.name("bday"))).selectByVisibleText(Integer.toString(personData.getBday()));
     new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(personData.getBmonth());
+    type(By.name("byear"), personData.getByear());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(personData.getGroup());
@@ -54,7 +57,6 @@ public class PersonHelper extends HelperBase {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 
-    type(By.name("byear"), personData.getByear());
   }
 
   public void gotoNewPersonPage() {
