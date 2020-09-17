@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.PersonData;
 import ru.stqa.pft.addressbook.model.Persons;
 
@@ -52,7 +53,11 @@ public class PersonHelper extends HelperBase {
     type(By.name("byear"), personData.getByear());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(personData.getGroup());
+      if (personData.getGroups().size() > 0) {
+        Assert.assertTrue(personData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group")))
+                .selectByVisibleText(personData.getGroups().iterator().next().getName());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -66,6 +71,7 @@ public class PersonHelper extends HelperBase {
   public void initPersonModificationById(int id) {
     wd.findElement(By.xpath(String.format("//a[@href='edit.php?id=%s']", id))).click();
   }
+
 
   public void create(PersonData person) {
     gotoNewPersonPage();
@@ -134,5 +140,20 @@ public class PersonHelper extends HelperBase {
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
             .withPhoneSecondary(phoneSecondary).withAddress(address).withEmail(email)
             .withEmail2(email2).withEmail3(email3);
+  }
+
+  public void AddToGroup(PersonData person, GroupData group) {
+    selectPersonById(person.getId());
+    click(By.name("to_group"));
+    new Select(wd.findElement(By.name("to_group")))
+            .selectByValue(Integer.toString(group.getId()));
+    click(By.name("add"));
+  }
+
+  public void delFromGroup(PersonData person, GroupData group) {
+    new Select(wd.findElement(By.name("group")))
+            .selectByValue(Integer.toString(group.getId()));
+    selectPersonById(person.getId());
+    click(By.name("remove"));
   }
 }

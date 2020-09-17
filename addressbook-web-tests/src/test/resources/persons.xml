@@ -13,7 +13,7 @@
     <email>email_0</email>
     <email2>email2_0</email2>
     <email3>email3_0</email3>
-    <group>test1</group>
+    <groups/>
     <photo>src\test\resources\photo.png</photo>
   </ru.stqa.pft.addressbook.model.PersonData>
   <ru.stqa.pft.addressbook.model.PersonData>
@@ -30,7 +30,7 @@
     <email>email_1</email>
     <email2>email2_1</email2>
     <email3>email3_1</email3>
-    <group>test1</group>
+    <groups/>
     <photo>src\test\resources\photo.png</photo>
   </ru.stqa.pft.addressbook.model.PersonData>
 </list>

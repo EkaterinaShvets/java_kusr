@@ -28,8 +28,7 @@ public class PersonModificationTests extends TestBase {
               .withEmail("teodorJW@mail.bk")
               .withEmail2("testJW@mail.bk")
               .withEmail3("testJW@gmail.bk")
-              .withBday(7).withBmonth("July").withByear("1970")
-              .withGroup("test1"));
+              .withBday(7).withBmonth("July").withByear("1970"));
       app.goTo().homePage();
     }
   }
@@ -51,13 +50,13 @@ public class PersonModificationTests extends TestBase {
             .withEmail("teodorJW@mail.com")
             .withEmail2("testJW@mail.com")
             .withEmail3("testJW@gmail.com")
-            .withBday(9).withBmonth("July").withByear("1976")
-            .withGroup("test1");
+            .withBday(9).withBmonth("July").withByear("1976");
     app.person().modify(person);
     app.goTo().homePage();
     assertEquals(app.person().count(), before.size());
     Persons after = app.db().persons();
     assertThat(after, equalTo(before.whitModified(modifiedPerson,person)));
+    verifyPersonListInUI();
   }
 
 }

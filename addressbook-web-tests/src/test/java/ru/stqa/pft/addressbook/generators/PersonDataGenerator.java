@@ -58,7 +58,7 @@ public class PersonDataGenerator {
               person.getFirstname(), person.getMiddlename(), person.getLastname(), person.getPhoto(),
               person.getAddress(), person.getHomePhone(), person.getMobilePhone(), person.getWorkPhone(),
               person.getEmail(), person.getEmail2(), person.getEmail3(),
-              person.getBday(), person.getBmonth(), person.getByear(), person.getGroup()));
+              person.getBday(), person.getBmonth(), person.getByear()));
     }
     writer.close();
   }
@@ -100,8 +100,7 @@ public class PersonDataGenerator {
               .withEmail(String.format("email_%s", i))
               .withEmail2(String.format("email2_%s", i))
               .withEmail3(String.format("email3_%s", i))
-              .withBday(7).withBmonth("July").withByear("1970")
-              .withGroup("test1"));
+              .withBday(7).withBmonth("July").withByear("1970"));
     }
     return persons;
   }

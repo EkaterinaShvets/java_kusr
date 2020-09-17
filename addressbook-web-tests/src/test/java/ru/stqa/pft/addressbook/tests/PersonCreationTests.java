@@ -4,9 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.generators.FileDeserializer;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.PersonData;
 import ru.stqa.pft.addressbook.model.Persons;
 
@@ -54,17 +57,27 @@ public class PersonCreationTests extends TestBase {
     return persons.stream().map((g)->new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+  }
+
   @Test (dataProvider = "validPersonsFromXml")
   public void testPersonCreation(PersonData person) {
+    Groups groups = app.db().groups();
     Persons before = app.db().persons();
     app.goTo().homePage();
-    app.person().create(person);
+    app.person().create(person.inGroup(groups.iterator().next()));
     app.goTo().homePage();
     assertEquals(app.person().count(), before.size()+1);
     Persons after = app.db().persons();
     Persons sss = before.whithAdded(person.withId(after.stream().mapToInt((p) -> p.getId()).max().getAsInt()));
     assertThat(after, equalTo(
             before.whithAdded(person.withId(after.stream().mapToInt((p) -> p.getId()).max().getAsInt()))));
+    verifyPersonListInUI();
   }
 
 }
