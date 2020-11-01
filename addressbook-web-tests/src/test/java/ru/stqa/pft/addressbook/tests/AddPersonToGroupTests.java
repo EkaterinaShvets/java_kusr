@@ -2,19 +2,17 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.appmanager.PersonHelper;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.PersonData;
-import ru.stqa.pft.addressbook.model.Persons;
 
 import java.io.File;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.equalToObject;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
-public class AddPersonToGroupTests extends TestBase{
+public class AddPersonToGroupTests extends TestBase {
   PersonData modifiedPerson;
 
   @BeforeMethod
@@ -52,27 +50,27 @@ public class AddPersonToGroupTests extends TestBase{
   public void testAddPersonToGroup() {
     int modifiedPersonId = modifiedPerson.getId();
     GroupData groupForAdd = new GroupData();
-    for (GroupData group : app.db().groups()){
-      if (! modifiedPerson.getGroups().contains(group)) {
+    for (GroupData group : app.db().groups()) {
+      if (!modifiedPerson.getGroups().contains(group)) {
         groupForAdd = group;
         break;
       }
     }
+
     Groups before = modifiedPerson.getGroups();
-    app.person().AddToGroup(modifiedPerson,groupForAdd);
+    app.person().AddToGroup(modifiedPerson, groupForAdd);
     app.goTo().homePage();
 
     PersonData personAfterAdd = new PersonData();
-    for (PersonData person : app.db().persons()){
+    for (PersonData person : app.db().persons()) {
       if (person.getId() == modifiedPersonId) {
         personAfterAdd = person;
         break;
       }
     }
     Groups after = personAfterAdd.getGroups();
-    assertEquals(after.size(), before.size()+1);
-    assertThat(after, equalTo(
-           before.whithAdded(groupForAdd.withId(after.stream().mapToInt((p) -> p.getId()).max().getAsInt()))));
-  }
+    assertEquals(after.size(), before.size() + 1);
+    assertThat(after, equalToObject(before.whithAdded(groupForAdd)));
+   }
 
 }
