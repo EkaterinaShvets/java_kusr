@@ -28,10 +28,6 @@ public class GroupData {
   @Type(type = "text")
   private String header;
 
-  public Persons getPersons() {
-    return new Persons(persons);
-  }
-
   @ManyToMany (mappedBy = "groups")
   private Set<PersonData> persons = new HashSet<PersonData>();
 
@@ -98,6 +94,10 @@ public class GroupData {
 
   public String getFooter() {
     return footer;
+  }
+
+  public Persons getPersons() {
+    return new Persons(persons);
   }
 
 }

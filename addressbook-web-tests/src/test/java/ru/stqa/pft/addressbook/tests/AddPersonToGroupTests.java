@@ -15,12 +15,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class AddPersonToGroupTests extends TestBase{
+  PersonData modifiedPerson;
 
   @BeforeMethod
   public void ensurePreconditions() {
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
+      app.goTo().homePage();
     }
     if (app.db().persons().size() == 0) {
       app.person().create(new PersonData()
@@ -36,22 +38,41 @@ public class AddPersonToGroupTests extends TestBase{
               .withEmail2("testJW@mail.bk")
               .withEmail3("testJW@gmail.bk")
               .withBday(7).withBmonth("July").withByear("1970"));
+      app.goTo().homePage();
+    }
+    modifiedPerson = app.db().persons().iterator().next();
+    if (app.db().groups().size() == modifiedPerson.getGroups().size()) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+      app.goTo().homePage();
     }
   }
 
   @Test
   public void testAddPersonToGroup() {
+    int modifiedPersonId = modifiedPerson.getId();
+    GroupData groupForAdd = new GroupData();
+    for (GroupData group : app.db().groups()){
+      if (! modifiedPerson.getGroups().contains(group)) {
+        groupForAdd = group;
+        break;
+      }
+    }
+    Groups before = modifiedPerson.getGroups();
+    app.person().AddToGroup(modifiedPerson,groupForAdd);
     app.goTo().homePage();
-    Groups groups = app.db().groups();
-    GroupData group = groups.iterator().next();
-    Persons before = app.db().persons();
-    PersonData modifiedPerson = before.iterator().next();
-    app.person().AddToGroup(modifiedPerson, group);
-    app.goTo().homePage();
-  //  assertEquals(app.person().count(), before.size());
-   // Persons after = app.db().persons();
-   // assertThat(after, equalTo(before.whitModified(modifiedPerson,modifiedPerson)));
-   // verifyPersonListInUI();
+
+    PersonData personAfterAdd = new PersonData();
+    for (PersonData person : app.db().persons()){
+      if (person.getId() == modifiedPersonId) {
+        personAfterAdd = person;
+        break;
+      }
+    }
+    Groups after = personAfterAdd.getGroups();
+    assertEquals(after.size(), before.size()+1);
+    assertThat(after, equalTo(
+           before.whithAdded(groupForAdd.withId(after.stream().mapToInt((p) -> p.getId()).max().getAsInt()))));
   }
 
 }
