@@ -1,20 +1,16 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
-import ru.stqa.pft.mantis.model.MailMessage;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class ApplicationManager {
   private WebDriver wd;
@@ -24,7 +20,9 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
-  private DBHelper dpHelper;
+  private DBHelper dbHelper;
+  private UserHelper userHelper;
+  private SessionHelper sessionHelper;
 
 
   public ApplicationManager(String browser) {
@@ -35,10 +33,11 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    dbHelper = new DBHelper();
   }
 
   public void stop() {
-    if(wd != null) {
+    if (wd != null) {
       wd.quit();
     }
   }
@@ -68,21 +67,21 @@ public class ApplicationManager {
 
 
   public FtpHelper ftp() {
-    if(ftp == null) {
+    if (ftp == null) {
       ftp = new FtpHelper(this);
     }
     return ftp;
   }
 
   public MailHelper mail() {
-    if(mailHelper == null) {
+    if (mailHelper == null) {
       mailHelper = new MailHelper(this);
     }
     return mailHelper;
   }
 
   public RegistrationHelper registration() {
-    if (registrationHelper == null){
+    if (registrationHelper == null) {
       registrationHelper = new RegistrationHelper(this);
     }
     return registrationHelper;
@@ -95,8 +94,21 @@ public class ApplicationManager {
     return jamesHelper;
   }
 
+  public UserHelper user() {
+    if (userHelper == null) {
+      userHelper = new UserHelper(this);
+    }
+    return userHelper;
+  }
+
+  public SessionHelper session() {
+    if (sessionHelper == null) {
+      sessionHelper = new SessionHelper(this);
+    }
+    return sessionHelper;
+  }
+
   public DBHelper db() {
-    dpHelper = new DBHelper();
-    return dpHelper;
+    return dbHelper;
   }
 }

@@ -73,7 +73,6 @@ public class PersonHelper extends HelperBase {
     wd.findElement(By.xpath(String.format("//a[@href='edit.php?id=%s']", id))).click();
   }
 
-
   public void create(PersonData person) {
     gotoNewPersonPage();
     fillPersonForm(person, true);

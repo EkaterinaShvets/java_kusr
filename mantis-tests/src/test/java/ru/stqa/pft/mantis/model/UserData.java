@@ -21,8 +21,6 @@ public class UserData {
   @Column(name = "email")
   private String email;
 
-  //private String password; - возможно и не нужно
-
   public int getId() {
     return id;
   }
