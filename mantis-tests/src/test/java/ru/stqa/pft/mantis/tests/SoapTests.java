@@ -13,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SoapTests extends TestBase{
 
-  @Test (enabled=false)
+  @Test
   public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
     Set<Project> projects = app.soap().getProjects();
     System.out.println(projects.size());
