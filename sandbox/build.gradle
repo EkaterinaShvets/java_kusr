@@ -10,6 +10,6 @@ dependencies {
     implementation 'org.testng:testng:7.1.0'
 }
 
-task  {
-    useTestNG 
+test  {
+    useTestNG()
 }
